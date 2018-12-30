@@ -1,14 +1,15 @@
+@jit
 def start(k, n, map):
 	return startGame(k, n, translate(map))
 
-
+@jit
 def translate(map):
 	newMap = list()
 	for i in map:
 		newMap.append(bool(int(i)))
 	return newMap
 
-
+@jit
 def startGame(k, n, map):
 	nowMap = copyInMap(k, n, map)
 	for i in range(k):
@@ -31,7 +32,7 @@ def startGame(k, n, map):
 		nowMap = newMap[:]
 	return countingLiving(nowMap)
 
-
+@jit
 def copyInMap(k, n, map):
 	startPosition = int((k * 2 + n + 2) / 2 - (n / 2))
 	newMap = genClearMap(k, n)
@@ -40,7 +41,7 @@ def copyInMap(k, n, map):
 			newMap[x + startPosition][y + startPosition] = map[x * n + y]
 	return newMap
 
-
+@jit
 def genClearMap(k, n):
 	f = list()
 	k = int(k)
@@ -52,7 +53,7 @@ def genClearMap(k, n):
 			f[x].append(False)
 	return (f)
 
-
+@jit
 def countingLiving(map):
 	c = 0
 	for x in range(len(map)):

@@ -1,11 +1,11 @@
-#!usr/bin/python3.6
+import numba
 import re
 import socket
 from time import time
 from threading import Thread
 import startGame
 
-
+@jit
 def connectGame():
     listSock = list()
     sock = socket.socket()
@@ -16,7 +16,7 @@ def connectGame():
     listSock.append(sock.accept())
     listSock.append(sock.accept())
 
-
+@jit
 def myGet():
     sock = socket.socket()
     sock.connect(('localhost', 8888))
@@ -25,7 +25,7 @@ def myGet():
     sock.close()
     return map(int, a.split("/"))
 
-
+@jit
 def mySend(maxInt, maxMap):
     sock = socket.socket()
     sock.connect(('localhost', 8989))
@@ -33,7 +33,7 @@ def mySend(maxInt, maxMap):
     sock.send(a.encode("utf-8"))
     sock.close()
 
-
+@jit
 def combGen(x, z):
     global resultMap
     global resultInt
@@ -56,7 +56,7 @@ def combGen(x, z):
     resultMap.append(maxMap)
     resultInt.append(maxInt)
 
-
+@jit
 def summ(x):
     summa = 0
     for i in x:
